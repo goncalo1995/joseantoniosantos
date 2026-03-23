@@ -5,13 +5,12 @@ import { useState } from 'react'
 
 interface BookCardProps {
   title: string
-  year: string
+  year: number
   description: string
-  category: string
   index?: number
 }
 
-export function BookCard({ title, year, description, category, index = 0 }: BookCardProps) {
+export function BookCard({ title, year, description, index = 0 }: BookCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -29,16 +28,13 @@ export function BookCard({ title, year, description, category, index = 0 }: Book
         <motion.div
           animate={{ rotateY: isHovered ? 5 : 0 }}
           transition={{ duration: 0.3 }}
-          className="relative flex-shrink-0 w-24 md:w-32 h-36 md:h-48 bg-paper-aged border border-border overflow-hidden shadow-sm"
+          className="relative shrink-0 w-24 md:w-32 h-36 md:h-48 bg-paper-aged border border-border overflow-hidden shadow-sm"
         >
           {/* Book spine effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-border to-transparent" />
+          <div className="absolute left-0 top-0 bottom-0 w-2 bg-linear-to-r from-border to-transparent" />
           
           {/* Decorative text on cover */}
           <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
-            <span className="text-[10px] md:text-xs text-ink-faded tracking-[0.2em] uppercase mb-2">
-              {category}
-            </span>
             <span className="font-serif text-xs md:text-sm text-ink leading-tight">
               {title}
             </span>
@@ -52,14 +48,14 @@ export function BookCard({ title, year, description, category, index = 0 }: Book
             {[...Array(8)].map((_, i) => (
               <div
                 key={i}
-                className="absolute left-3 right-3 h-[1px] bg-ink"
+                className="absolute left-3 right-3 h-px bg-ink"
                 style={{ top: `${20 + i * 10}%` }}
               />
             ))}
           </div>
 
           {/* Corner fold */}
-          <div className="absolute top-0 right-0 w-4 h-4 bg-gradient-to-bl from-border to-transparent" />
+          <div className="absolute top-0 right-0 w-4 h-4 bg-linear-to-bl from-border to-transparent" />
         </motion.div>
 
         {/* Book Details */}
@@ -68,14 +64,10 @@ export function BookCard({ title, year, description, category, index = 0 }: Book
             <h3 className="font-serif text-lg md:text-xl text-ink group-hover:text-ink-faded transition-colors">
               {title}
             </h3>
-            <span className="text-sm text-ink-faded font-mono flex-shrink-0">
+            <span className="text-sm text-ink-faded font-mono shrink-0">
               {year}
             </span>
           </div>
-          
-          <span className="inline-block text-[10px] text-ink-faded tracking-[0.2em] uppercase mb-3 border border-border px-2 py-1">
-            {category}
-          </span>
           
           <p className="text-sm text-ink-faded leading-relaxed">
             {description}
@@ -84,7 +76,7 @@ export function BookCard({ title, year, description, category, index = 0 }: Book
       </div>
 
       {/* Bottom border */}
-      <div className="mt-6 h-[1px] bg-border" />
+      <div className="mt-6 h-px bg-border" />
     </motion.article>
   )
 }

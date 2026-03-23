@@ -1,190 +1,138 @@
-'use client'
+"use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
+import { useState, useEffect } from "react";
+import ScrollReveal from "@/components/scroll-reveal";
+import { motion } from "framer-motion";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 
-const bioSections = [
+const phases = [
   {
-    id: 'infancia',
-    title: 'Infância e Juventude',
-    years: '1935 — 1955',
-    content: `Nascido em Lisboa, numa manhã fria de Janeiro de 1935, cresceu nas ruas estreitas do Bairro Alto, entre o cheiro a café torrado e o som das conversas dos vizinhos. O seu pai, tipógrafo de profissão, ensinou-lhe desde cedo o respeito pela palavra impressa.
+    id: "origens",
+    title: "Origens (1935–1955)",
+    content: `António Manuel Rodrigues nasceu a 14 de março de 1935, numa pequena aldeia do interior beirão, onde o silêncio era apenas quebrado pelo sino da igreja e pelas conversas na praça. Filho de um professor primário e de uma costureira, cresceu rodeado de livros e de histórias orais que moldaram a sua imaginação.
 
-Os primeiros anos foram marcados pela descoberta dos livros na pequena biblioteca municipal, onde passava tardes inteiras perdido entre páginas amarelecidas. Foi ali que nasceu a paixão pela escrita — uma chama que nunca se apagaria.
+Desde cedo mostrou fascínio pela palavra escrita. Aos doze anos, já redigia pequenos contos que entregava ao pai para revisão. Na escola secundária em Viseu, destacou-se nas letras, sendo premiado num concurso literário regional com uma crónica sobre a vida rural portuguesa.
 
-Na escola, destacava-se pela capacidade de observação e pelo talento natural para contar histórias. Os professores reconheciam nele algo especial: a capacidade de transformar o quotidiano em narrativa.`
+A infância modesta ensinou-lhe o valor da observação. Anos mais tarde, diria: «Aprendi a ouvir antes de aprender a escrever. É a única ordem que faz sentido.»`,
   },
   {
-    id: 'carreira',
-    title: 'O Início da Carreira',
-    years: '1958 — 1972',
-    content: `Em 1958, aos 23 anos, entrou pela primeira vez numa redação de jornal. O cheiro a tinta de impressão e o ruído constante das máquinas de escrever tornaram-se a banda sonora da sua vida. Começou como aprendiz, fazendo recados e observando os jornalistas mais experientes.
+    id: "formacao",
+    title: "Formação e Primeiros Passos (1955–1965)",
+    content: `Em 1955, muda-se para Lisboa para frequentar a Faculdade de Letras. A capital abre-lhe os olhos para um mundo em ebulição. Frequenta cafés literários, debate política em tertúlias semiclandestinas e começa a colaborar com jornais estudantis.
 
-A primeira grande reportagem veio em 1965: uma investigação sobre as condições de vida nas aldeias do interior. O trabalho, publicado em série durante três semanas, causou comoção nacional e estabeleceu a sua reputação como jornalista sério e comprometido.
+A sua primeira reportagem profissional é publicada no Diário de Lisboa em 1958 — um retrato dos pescadores de Peniche que impressiona pela maturidade descritiva e pela empatia com os seus protagonistas. O editor-chefe nota-o e convida-o para a redação.
 
-Durante este período, desenvolveu o seu estilo característico — uma prosa limpa, directa, mas profundamente humana. As suas reportagens não se limitavam a informar; faziam sentir.`
+Nos anos seguintes, aprende o ofício na trincheira: cobre tribunais, visita bairros degradados, entrevista políticos e intelectuais. A sua escrita ganha uma voz própria — direta, límpida, sem adornos desnecessários, mas com uma humanidade que a distingue.`,
   },
   {
-    id: 'consagracao',
-    title: 'Anos de Consagração',
-    years: '1972 — 1989',
-    content: `Os anos 70 trouxeram o reconhecimento nacional. As suas crónicas semanais tornaram-se leitura obrigatória, discutidas nos cafés e citadas em debates. Era a voz de uma geração que procurava entender um país em transformação.
+    id: "consagracao",
+    title: "Consagração (1965–1985)",
+    content: `A década de 1960 marca a afirmação de António Rodrigues como um dos grandes repórteres da imprensa portuguesa. As suas reportagens sobre a guerra colonial, escritas com rigor e sem concessões ao poder, custam-lhe problemas com a censura e duas detenções breves pela PIDE.
 
-Em 1978, iniciou a transição para a literatura, sem nunca abandonar o jornalismo. O primeiro romance, "Vozes do Silêncio", foi publicado em 1982 e tornou-se um sucesso imediato. A crítica elogiou a sua capacidade de transportar para a ficção a mesma honestidade brutal das suas reportagens.
+Com o 25 de Abril, a sua caneta ganha finalmente liberdade plena. Torna-se correspondente internacional, cobrindo conflitos em África, América Latina e Médio Oriente. As suas crónicas de guerra são lidas com avidez — não pela descrição da violência, mas pela capacidade de encontrar humanidade nos cenários mais desoladores.
 
-Os prémios começaram a acumular-se: o Prémio de Jornalismo em 1980, o Grande Prémio de Literatura em 1985. Mas mais do que os galardões, importava-lhe o impacto das suas palavras na consciência colectiva.`
+Em 1978, publica o seu primeiro livro, «Cartas do Silêncio», uma coletânea de reportagens que se torna num sucesso de crítica e público. Seguem-se mais seis obras ao longo das duas décadas seguintes, consolidando a sua reputação como escritor-jornalista.`,
   },
   {
-    id: 'legado',
-    title: 'Maturidade e Legado',
-    years: '1989 — Presente',
-    content: `A década de 90 marcou uma viragem para a reflexão. Continuou a escrever, mas com um ritmo mais pausado, privilegiando a qualidade sobre a quantidade. Cada obra tornou-se um acontecimento literário.
+    id: "maturidade",
+    title: "Maturidade e Legado (1985–2010)",
+    content: `Nos anos 80 e 90, António Rodrigues assume o papel de mestre. Dirige secções de grandes jornais, forma jovens repórteres e leciona em universidades. A sua exigência é lendária — mas também a generosidade com que partilha o saber.
 
-Dedicou-se também à formação de jovens jornalistas, partilhando décadas de experiência em workshops e palestras. Para ele, transmitir o ofício era tão importante quanto praticá-lo. "A escrita é uma tocha que deve passar de mão em mão", costumava dizer.
+Publica ensaios sobre o papel do jornalismo na democracia, alertando para os perigos da superficialidade e da pressa. «O jornalismo está doente», escreve em 1997, «não por falta de meios, mas por excesso de ruído.»
 
-Hoje, as suas obras continuam a ser lidas e estudadas, traduzidas em mais de vinte línguas. O seu legado transcende as páginas: é uma lição viva sobre a importância da verdade, da persistência e do respeito pela palavra.`
-  }
-]
+Recebe o Prémio Nacional de Jornalismo em 1992 e o Grande Prémio de Literatura em 2003 pelo conjunto da obra. Em 2005, publica as suas memórias, «Tinta e Tempo», um olhar sereno e por vezes irónico sobre cinco décadas de vida e escrita.
 
-export default function BiografiaPage() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: containerRef })
-  const progressHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+Retira-se progressivamente da vida pública, mantendo apenas uma crónica semanal onde comenta o mundo com a lucidez e a elegância que sempre lhe foram próprias.`,
+  },
+];
+
+const Biography = () => {
+  const [activeSection, setActiveSection] = useState("origens");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+
+    phases.forEach((phase) => {
+      const el = document.getElementById(phase.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="container min-h-screen bg-background relative max-w-5xl mx-auto px-6 py-16">
+
       {/* Paper texture overlay */}
       <div className="fixed inset-0 paper-texture pointer-events-none" />
       
       <Navigation />
-      
-      <main className="relative pt-24 md:pt-32" ref={containerRef}>
-        {/* Hero Section */}
-        <section className="px-4 md:px-6 mb-16 md:mb-24">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8 }}
-              className="w-16 h-[1px] bg-border mx-auto mb-6"
-            />
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl text-ink mb-4"
-            >
-              Biografia
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-ink-faded leading-relaxed"
-            >
-              A história completa de uma vida dedicada às palavras
-            </motion.p>
-          </div>
-        </section>
 
-        {/* Table of Contents */}
-        <section className="px-4 md:px-6 mb-16">
-          <div className="max-w-3xl mx-auto">
-            <motion.nav
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="bg-paper border border-border p-6 md:p-8"
-            >
-              <h2 className="text-xs text-ink-faded tracking-[0.3em] uppercase mb-6">
-                Índice
-              </h2>
-              <ul className="space-y-4">
-                {bioSections.map((section, index) => (
-                  <li key={section.id}>
-                    <a
-                      href={`#${section.id}`}
-                      className="group flex items-start gap-4 text-ink hover:text-ink-faded transition-colors"
-                    >
-                      <span className="text-xs text-ink-faded font-mono min-w-[3rem]">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <div>
-                        <span className="block font-serif">{section.title}</span>
-                        <span className="text-xs text-ink-faded">{section.years}</span>
-                      </div>
-                      <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                        →
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.nav>
-          </div>
-        </section>
+      <ScrollReveal>
+        <h1 className="font-typewriter text-3xl sm:text-4xl mt-8 mb-2 ink-stamp">Biografia</h1>
+        <div className="w-12 h-px bg-sepia mb-12" />
+      </ScrollReveal>
 
-        {/* Biography Content */}
-        <section className="relative px-4 md:px-6">
-          {/* Progress indicator (desktop) */}
-          <div className="hidden lg:block fixed left-8 top-1/2 -translate-y-1/2 h-48">
-            <div className="relative w-[2px] h-full bg-border">
-              <motion.div
-                className="absolute top-0 left-0 w-full bg-ink"
-                style={{ height: progressHeight }}
-              />
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto space-y-24 md:space-y-32">
-            {bioSections.map((section, index) => (
-              <motion.article
-                key={section.id}
-                id={section.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 0.8 }}
-                className="scroll-mt-32"
+      <main className="flex gap-12">
+        {/* Sidebar nav */}
+        <aside className="hidden lg:block w-48 shrink-0">
+          <nav className="sticky top-24 space-y-1">
+            {phases.map((phase) => (
+              <a
+                key={phase.id}
+                href={`#${phase.id}`}
+                className={`block font-typewriter text-xs py-2 px-3 transition-all duration-300 border-l-2 ${
+                  activeSection === phase.id
+                    ? "border-foreground text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(phase.id)?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
-                {/* Section Header */}
-                <header className="mb-8 border-b border-border pb-6">
-                  <span className="text-xs text-ink-faded tracking-[0.2em] uppercase block mb-2">
-                    Capítulo {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h2 className="font-serif text-2xl md:text-3xl text-ink mb-2">
-                    {section.title}
-                  </h2>
-                  <span className="text-sm text-ink-faded font-mono">
-                    {section.years}
-                  </span>
-                </header>
-
-                {/* Section Content */}
-                <div className="prose-typewriter">
-                  {section.content.split('\n\n').map((paragraph, pIndex) => (
-                    <motion.p
-                      key={pIndex}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: pIndex * 0.1, duration: 0.6 }}
-                      className="text-ink leading-relaxed mb-6 text-base md:text-lg"
-                    >
-                      {paragraph}
-                    </motion.p>
-                  ))}
-                </div>
-              </motion.article>
+                {phase.title.split("(")[0].trim()}
+              </a>
             ))}
-          </div>
-        </section>
+          </nav>
+        </aside>
 
-        {/* End Section */}
+        {/* Content */}
+        <section className="flex-1 max-w-2xl">
+          {phases.map((phase, i) => (
+            <ScrollReveal key={phase.id} delay={i * 0.05}>
+              <section id={phase.id} className="mb-16 scroll-mt-8">
+                <h2 className="font-typewriter text-xl mb-1">{phase.title}</h2>
+                <div className="w-8 h-px bg-border mb-6" />
+                {phase.content.split("\n\n").map((para, j) => (
+                  <motion.p
+                    key={j}
+                    className="font-body text-sm leading-[1.85] text-foreground mb-4 max-w-[90ch]"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6, delay: j * 0.08 }}
+                  >
+                    {para}
+                  </motion.p>
+                ))}
+              </section>
+            </ScrollReveal>
+          ))}
+        </section>
+      </main>
+
+      {/* End Section */}
         <section className="py-24 md:py-32 px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0 }}
@@ -204,9 +152,8 @@ export default function BiografiaPage() {
             </blockquote>
           </motion.div>
         </section>
-      </main>
-
-      <Footer />
     </div>
-  )
-}
+  );
+};
+
+export default Biography;

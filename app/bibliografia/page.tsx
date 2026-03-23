@@ -4,73 +4,76 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
-import { BookCard } from '@/components/book-card'
+import bookCover1 from '@/public/images/livros/d-albino-cleto.webp'
+import bookCover2 from '@/public/images/book-cover-2.jpg'
+import bookCover3 from '@/public/images/book-cover-3.jpg'
+import bookCover4 from '@/public/images/book-cover-4.jpg'
+import bookCover5 from '@/public/images/book-cover-5.jpg'
+import bookCover6 from '@/public/images/book-cover-6.jpg'
+import bookCover7 from '@/public/images/book-cover-7.jpg'
+import ScrollReveal from '@/components/scroll-reveal'
+import Image from 'next/image'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 const books = [
   {
-    title: 'Vozes do Silêncio',
-    year: '1982',
-    category: 'Romance',
-    description: 'O primeiro romance, aclamado pela crítica. Uma narrativa poderosa sobre uma família portuguesa durante os anos do Estado Novo, explorando temas de resistência silenciosa e coragem quotidiana.'
+    year: 1978,
+    title: "D. Albino Cleto",
+    description: "Este livro sobre D. Albino Cleto (1935-2012), mais do que uma biografia, é um testemunho de vida plena(mente cristã), escrito com o coração, por um amigo e admirador. Baseia-se no testemunho dos que o conheceram de perto e nos próprios escritos desta figura insigne da Igreja portuguesa. Ao longo dos seus nove capítulos encontrar-se-ão certamente muitos pormenores até agora desconhecidos da vida, ação apostólica e espiritualidade de D. Albino. O traço mais destacado da vida do prelado não será, todavia, o itinerário repleto de tarefas multifacetadas ao serviço da Igreja, mas a sua humanidade simples, serena e humilde, como sublinha o atual bispo de Coimbra, D. Virgílio Antunes, no prefácio do livro: «Na tentativa de definir o traço fundamental da pessoa de D. Albino Cleto, ocorre-me a expressão bíblica \"passou pelo mundo fazendo o bem\".» As mais de 550 páginas, que incluem uma centena de fotografias, abrangem igualmente as ocupações que D. Albino assumiu após ter sido ordenado bispo, terminando com uma coletânea de textos em que se destacam os temas da arte, património, inculturação da fé, liturgia e diálogo inter-religioso.",
+    cover: bookCover1,
+    alt: "Capa provisória de Cartas do Silêncio com estética de máquina de escrever sobre papel envelhecido",
+    link: "https://www.wook.pt/livro/d-albino-cleto-jose-antonio-santos/17399111",
   },
   {
-    title: 'Crónicas do Tempo',
-    year: '1985',
-    category: 'Crónicas',
-    description: 'Colectânea das melhores crónicas publicadas ao longo de uma década. Reflexões sobre a sociedade portuguesa em transformação, com a prosa característica do autor.'
+    year: 1982,
+    title: "A Margem do Rio",
+    description: "Romance inspirado nas comunidades ribeirinhas do Douro, entrelaçando ficção e jornalismo literário.",
+    cover: bookCover2,
+    alt: "Capa provisória de A Margem do Rio com paisagem fluvial em tons sépia",
+    link: "https://www.amazon.com/A-Margem-Rio-Jose-Antonio-Santos/dp/8418000000",
   },
   {
-    title: 'O Peso das Palavras',
-    year: '1988',
-    category: 'Romance',
-    description: 'Segunda obra de ficção, vencedora do Grande Prémio de Literatura. A história de um jornalista confrontado com dilemas éticos num período turbulento da história.'
+    year: 1986,
+    title: "Fronteiras Invisíveis",
+    description: "Crónicas de correspondente internacional — conflitos, revoluções e encontros improváveis em três continentes.",
+    cover: bookCover3,
+    alt: "Capa provisória de Fronteiras Invisíveis com mapas e referências editoriais vintage",
+    link: "https://www.amazon.com/Fronteiras-Invis%C3%ADveis-Jos%C3%A9-Ant%C3%B3nio-Santos/dp/8418000001",
   },
   {
-    title: 'Memórias de Guerra',
-    year: '1991',
-    category: 'Reportagem',
-    description: 'Compilação de reportagens de guerra realizadas em África. Um testemunho brutal e honesto dos horrores do conflito e da humanidade que persiste mesmo nos momentos mais sombrios.'
+    year: 1991,
+    title: "O Peso das Palavras",
+    description: "Ensaios sobre o papel do jornalismo na democracia portuguesa pós-25 de Abril.",
+    cover: bookCover4,
+    alt: "Capa provisória de O Peso das Palavras com páginas envelhecidas e marcas de tinta",
   },
   {
-    title: 'A Cidade que Fomos',
-    year: '1995',
-    category: 'Romance',
-    description: 'Romance epistolar que traça a evolução de Lisboa ao longo do século XX, através da correspondência entre dois amigos separados pela emigração.'
+    year: 1996,
+    title: "Retratos a Carvão",
+    description: "Perfis de figuras anónimas que moldaram a história sem nunca constarem dos livros oficiais.",
+    cover: bookCover5,
+    alt: "Capa provisória de Retratos a Carvão com retrato monocromático clássico",
   },
   {
-    title: 'Entrevistas Impossíveis',
-    year: '1998',
-    category: 'Jornalismo',
-    description: 'As entrevistas mais marcantes de uma carreira de quatro décadas. Conversas com figuras que moldaram a história contemporânea portuguesa.'
+    year: 2001,
+    title: "Crónicas do Tempo Presente",
+    description: "Seleção das melhores crónicas semanais publicadas entre 1995 e 2000.",
+    cover: bookCover6,
+    alt: "Capa provisória de Crónicas do Tempo Presente com página de jornal e máquina de escrever",
   },
   {
-    title: 'O Último Repórter',
-    year: '2003',
-    category: 'Romance',
-    description: 'Romance semi-autobiográfico sobre o fim de uma era no jornalismo. Uma meditação sobre mudança, memória e o papel da imprensa na sociedade.'
+    year: 2005,
+    title: "Tinta e Tempo",
+    description: "Memórias pessoais e profissionais — cinco décadas de vida e escrita com lucidez e ironia.",
+    cover: bookCover7,
+    alt: "Capa provisória de Tinta e Tempo com mesa de escrita analógica em preto e bege",
   },
-  {
-    title: 'Cartas a um Jovem Jornalista',
-    year: '2008',
-    category: 'Ensaio',
-    description: 'Reflexões sobre o ofício de jornalista, dirigidas às novas gerações. Um legado de sabedoria profissional e ética escrito com clareza e paixão.'
-  },
-  {
-    title: 'Fragmentos',
-    year: '2015',
-    category: 'Poesia',
-    description: 'Única incursão na poesia, publicada aos 80 anos. Versos curtos e precisos que condensam uma vida de observação e reflexão sobre a condição humana.'
-  }
-]
+];
 
-const categories = ['Todos', 'Romance', 'Crónicas', 'Reportagem', 'Jornalismo', 'Ensaio', 'Poesia']
 
 export default function BibliografiaPage() {
-  const [activeCategory, setActiveCategory] = useState('Todos')
-
-  const filteredBooks = activeCategory === 'Todos' 
-    ? books 
-    : books.filter(book => book.category === activeCategory)
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -87,7 +90,7 @@ export default function BibliografiaPage() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.8 }}
-              className="w-16 h-[1px] bg-border mx-auto mb-6"
+              className="w-16 h-px bg-border mx-auto mb-6"
             />
             
             <motion.h1
@@ -135,55 +138,86 @@ export default function BibliografiaPage() {
           </motion.div>
         </section>
 
-        {/* Category Filter */}
-        <section className="px-4 md:px-6 mb-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`px-3 md:px-4 py-2 text-xs tracking-wider uppercase transition-all key-press ${
-                    activeCategory === category
-                      ? 'bg-ink text-paper border border-ink'
-                      : 'bg-transparent text-ink-faded border border-border hover:border-ink hover:text-ink'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
         {/* Books Grid */}
         <section className="px-4 md:px-6 pb-16 md:pb-24">
           <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
-              {filteredBooks.map((book, index) => (
-                <BookCard
-                  key={book.title}
-                  title={book.title}
-                  year={book.year}
-                  category={book.category}
-                  description={book.description}
-                  index={index}
-                />
-              ))}
+              <Accordion type="single" collapsible className="space-y-8">
+                {books.map((book, index) => (
+                  <ScrollReveal key={book.title} delay={index * 0.08}>
+                    <AccordionItem value={`item-${index}`} className="border-0">
+                      <motion.article
+                        className="border border-border bg-card p-6 sm:p-8 relative overflow-hidden group"
+                        whileHover={{
+                          boxShadow: "0 4px 20px hsl(30 10% 15% / 0.06)",
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {/* Year badge */}
+                        <div className="absolute top-0 right-0 bg-secondary font-typewriter text-xs tracking-wider px-3 py-1.5 text-muted-foreground">
+                          {book.year}
+                        </div>
+
+                        <div className="grid gap-5 sm:grid-cols-[140px_1fr] sm:items-start">
+                          <div className="bg-secondary/50 border border-border p-2 shadow-sm">
+                            <Image
+                              src={book.cover}
+                              alt={book.alt}
+                              width={280}
+                              height={420}
+                              className="w-full aspect-3/4 object-cover grayscale-[0.15] transition-transform duration-300 group-hover:scale-[1.02]"
+                              placeholder="blur"
+                              quality={75}
+                            />
+                          </div>
+
+                          <div>
+                            <h2 className="font-typewriter text-lg mb-1 pr-16">
+                              {book.title}
+                            </h2>
+                            <div className="w-6 h-px bg-sepia mb-3" />
+
+                            <AccordionTrigger className="p-0 py-2 [&>svg]:text-ink-faded [&>svg]:size-4" onClick={() => setOpenIndex(index === openIndex ? null : index)}>
+                              <span className="text-sm font-typewriter tracking-wider text-ink-faded">
+                                {index === openIndex ? "Sinopse:" : "Ler sinopse"}
+                              </span>
+                            </AccordionTrigger>
+
+                            <AccordionContent>
+                              <p className="font-body text-sm text-muted-foreground leading-relaxed mt-2">
+                                {book.description}
+                              </p>
+                            </AccordionContent>
+
+                            {book.link && (
+                              <a
+                                href={book.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 mt-6 text-ink-faded hover:text-ink transition-colors bg-secondary/80 px-3 py-1.5 rounded"
+                              >
+                                <span className="text-sm font-typewriter tracking-wider">
+                                  Comprar
+                                </span>
+                                <span className="text-sm">→</span>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </motion.article>
+                    </AccordionItem>
+                  </ScrollReveal>
+                ))}
+              </Accordion>
             </div>
 
-            {filteredBooks.length === 0 && (
+            {books.length === 0 && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="text-center py-16"
               >
-                <p className="text-ink-faded">Nenhuma obra encontrada nesta categoria.</p>
+                <p className="text-ink-faded">Nenhuma obra encontrada.</p>
               </motion.div>
             )}
           </div>
