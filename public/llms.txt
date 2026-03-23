@@ -1,0 +1,21 @@
+# jobs.rochanegra.com
+
+Brutal honesty for job seekers. An AI-powered skepticism engine that teardowns CVs and startup ideas using structured mental models (Fermi estimation, Pre-mortems, Inversion).
+
+## Core Functionalities
+1. **CV Analysis**: AI-powered CV analysis and optimization.
+2. **Interview Prep**: AI-powered interview preparation.
+3. **Job Search**: AI-powered job search assistance.
+4. **Resume Builder**: AI-powered resume builder.
+
+## Resources & Frameworks
+- **Job Seeker Prep**: How to stress-test pitches, common deck mistakes, and what investors never ask aloud.
+
+## Technical Details
+- **Architecture**: Next.js (App Router), i18n support.
+- **Privacy**: CV data is private and not shared with any third party except for AI analysis.
+
+## Links
+- [Landing Page](https://jobs.rochanegra.com)
+- [Resources Hub](https://jobs.rochanegra.com/blog)
+- [Get started](https://jobs.rochanegra.com/dashboard)
