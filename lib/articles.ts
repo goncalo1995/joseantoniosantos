@@ -5,6 +5,8 @@ export interface Article {
   category: string
   excerpt: string
   content: string
+  image?: string
+  imageAlt?: string
 }
 
 export const articles: Article[] = [
@@ -12,6 +14,8 @@ export const articles: Article[] = [
     slug: 'o-ultimo-comboio-do-sul',
     title: 'O Último Comboio do Sul',
     date: '15 de Março de 1972',
+    image: '/images/article-photo-1.jpg',
+    imageAlt: 'O Último Comboio do Sul',
     category: 'Reportagem',
     excerpt: 'Uma viagem pelos últimos quilómetros de uma linha ferroviária condenada ao abandono, onde os passageiros contam histórias de um Portugal que desaparece.',
     content: `A estação de São Bento já não é o que era. As paredes de azulejos azuis, que contam batalhas e conquistas, observam agora um movimento cada vez mais escasso. São sete da manhã quando o comboio para Trás-os-Montes parte pela última vez.

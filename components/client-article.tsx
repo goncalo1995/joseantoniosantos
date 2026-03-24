@@ -1,10 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { getArticleBySlug, articles } from '@/lib/articles'
+import { TypewriterText } from './typewriter-text'
+import ScrollReveal from './scroll-reveal'
 
 type ClientProps = {
   article: NonNullable<ReturnType<typeof getArticleBySlug>>
@@ -13,32 +15,17 @@ type ClientProps = {
 }
 
 function ClientArticleContent({ article, prevArticle, nextArticle }: ClientProps) {
-  const [displayedParagraphs, setDisplayedParagraphs] = useState<string[]>([])
-  const [isTypingComplete, setIsTypingComplete] = useState(false)
+  const [titleDone, setTitleDone] = useState(false);
+  const handleTitleDone = useCallback(() => setTitleDone(true), []);
 
   const paragraphs = article.content.split('\n\n')
-
-  useEffect(() => {
-    let currentIndex = 0
-    const interval = setInterval(() => {
-      if (currentIndex < paragraphs.length) {
-        setDisplayedParagraphs(prev => [...prev, paragraphs[currentIndex]!])
-        currentIndex++
-      } else {
-        setIsTypingComplete(true)
-        clearInterval(interval)
-      }
-    }, 200)
-
-    return () => clearInterval(interval)
-  }, [paragraphs.length]) // article is stable
 
   // Rest of your JSX — header, content with typing effect, navigation, etc.
   return (
     <>
       {/* Back link, header, title, excerpt ... */}
       {/* Back Link */}
-        <section className="px-4 md:px-6 mb-8">
+        <section className="px-4 md:px-6 my-8">
           <div className="max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -58,123 +45,93 @@ function ClientArticleContent({ article, prevArticle, nextArticle }: ClientProps
 
         {/* Article Header */}
         <section className="px-4 md:px-6 mb-12">
-          <div className="max-w-3xl mx-auto">
-            {/* Newspaper-style header */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="border-t-4 border-b border-ink py-4 mb-8"
-            >
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] text-ink-faded tracking-[0.2em] uppercase border border-border px-2 py-0.5">
-                  {article.category}
-                </span>
-                <span className="text-xs text-ink-faded font-mono">
-                  {article.date}
-                </span>
-              </div>
-            </motion.div>
+          <h1 className="font-typewriter text-2xl sm:text-3xl leading-snug mb-3 ink-stamp">
+          <TypewriterText text={article.title} speed={50} onComplete={handleTitleDone} />
+        </h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: titleDone ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <time className="font-typewriter text-xs text-muted-foreground tracking-wider">
+            {article.date}
+          </time>
+          <div className="w-8 h-px bg-sepia mt-4" />
+        </motion.div>
 
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="font-serif text-3xl md:text-4xl lg:text-5xl text-ink leading-tight mb-6"
-            >
-              {article.title}
-            </motion.h1>
-
-            {/* Excerpt / Lead */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-lg text-ink-faded leading-relaxed font-serif italic border-l-2 border-border pl-4"
-            >
-              {article.excerpt}
-            </motion.p>
-          </div>
-        </section>
-
-      <section className="px-4 md:px-6 pb-16">
-        <div className="max-w-3xl mx-auto">
-          <div className="prose-article">
-            {displayedParagraphs.map((paragraph, index) => (
-              <motion.p
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="text-ink leading-relaxed mb-6 text-base md:text-lg first-letter:text-4xl …"
-                style={{ textIndent: index > 0 ? '2em' : 0 }}
-              >
-                {paragraph}
-              </motion.p>
-            ))}
-
-            {!isTypingComplete && (
-              <motion.span
-                initial={{ opacity: 1 }}
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ repeat: Infinity, duration: 1 }}
-                className="inline-block w-2 h-5 bg-ink"
-              />
-            )}
-          </div>
-        </div>
+        {article.image && (
+        <motion.figure
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: titleDone ? 1 : 0, y: titleDone ? 0 : 16 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-8 border border-border bg-card p-3"
+        >
+          <img
+            src={article.image}
+            alt={article.imageAlt}
+            className="w-full aspect-video object-cover grayscale"
+          />
+        </motion.figure>
+        )}
       </section>
 
-      {/* "FIM" + prev/next navigation when typing is complete */}
-      {isTypingComplete && (
-         <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="px-4 md:px-6 pb-16 md:pb-24"
-          >
-            <div className="max-w-3xl mx-auto">
-              <div className="border-t border-border pt-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  {/* Previous Article */}
-                  <div>
-                    {prevArticle && (
-                      <Link 
-                        href={`/artigos/${prevArticle.slug}`}
-                        className="group block"
-                      >
-                        <span className="text-xs text-ink-faded tracking-wider uppercase mb-2 block">
-                          ← Artigo anterior
-                        </span>
-                        <span className="font-serif text-ink group-hover:text-ink-faded transition-colors">
-                          {prevArticle.title}
-                        </span>
-                      </Link>
-                    )}
-                  </div>
+      <article>
+        {titleDone && paragraphs.map((para, i) => (
+          <ScrollReveal key={i} delay={i * 0.05}>
+            <p className="font-body text-sm leading-[1.9] text-foreground mb-5">
+              {para}
+            </p>
+          </ScrollReveal>
+        ))}
+      </article>
 
-                  {/* Next Article */}
-                  <div className="md:text-right">
-                    {nextArticle && (
-                      <Link 
-                        href={`/artigos/${nextArticle.slug}`}
-                        className="group block"
-                      >
-                        <span className="text-xs text-ink-faded tracking-wider uppercase mb-2 block">
-                          Próximo artigo →
-                        </span>
-                        <span className="font-serif text-ink group-hover:text-ink-faded transition-colors">
-                          {nextArticle.title}
-                        </span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
+      {/* "FIM" + prev/next navigation when typing is complete */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="px-4 md:px-6 pb-16 md:pb-24"
+      >
+        <div className="max-w-3xl mx-auto">
+          <div className="border-t border-border pt-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Previous Article */}
+              <div>
+                {prevArticle && (
+                  <Link 
+                    href={`/artigos/${prevArticle.slug}`}
+                    className="group block"
+                  >
+                    <span className="text-xs text-ink-faded tracking-wider uppercase mb-2 block">
+                      ← Artigo anterior
+                    </span>
+                    <span className="font-serif text-ink group-hover:text-ink-faded transition-colors">
+                      {prevArticle.title}
+                    </span>
+                  </Link>
+                )}
+              </div>
+
+              {/* Next Article */}
+              <div className="md:text-right">
+                {nextArticle && (
+                  <Link 
+                    href={`/artigos/${nextArticle.slug}`}
+                    className="group block"
+                  >
+                    <span className="text-xs text-ink-faded tracking-wider uppercase mb-2 block">
+                      Próximo artigo →
+                    </span>
+                    <span className="font-serif text-ink group-hover:text-ink-faded transition-colors">
+                      {nextArticle.title}
+                    </span>
+                  </Link>
+                )}
               </div>
             </div>
-          </motion.section>
-      )}
+          </div>
+        </div>
+      </motion.section>
     </>
   )
 }

@@ -15,6 +15,15 @@ export async function generateStaticParams() {
   }))
 }
 
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const { slug } = await params
+  const article = getArticleBySlug(slug)
+  return {
+    title: article?.title || 'Artigo',
+    description: article?.excerpt || 'Artigo do José António Santos',
+  }
+}
+
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params
   const article = getArticleBySlug(slug)
@@ -38,7 +47,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null
 
   return (
-    <div className="min-h-screen bg-background relative">
+    // <div className="min-h-screen bg-background relative">
+    <div className="container max-w-2xl mx-auto px-6 py-16">
       {/* Paper texture overlay */}
       <div className="fixed inset-0 paper-texture pointer-events-none" />
       
