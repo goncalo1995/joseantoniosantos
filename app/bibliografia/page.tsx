@@ -30,11 +30,12 @@ const books = [
     description: "A compreensão de Oledo requer uma atenta observação à Rua Direita. Na tradição do to-pónimo português, aquele nome, por via de regra, é atribuído à artéria principal, a mais importante da localidade. Em outros casos, até, por ter sido onde tudo começou, a primeira. (...) Está alinhada às vias de comunicação exterior: a este, com Idanha-a-Nova e Proença-a-Velha; a oeste, com São Miguel de Acha. (...) O empedrado da rua é composto por grossos paralelepípedos de granito. Ao longo de linhas paralelas dispõe-se o local de habitação. Entre fileiras do casario, distinguem-se resquícios renascentistas. Em geral, a volumetria não excede dois pisos, rés-do-chão e primeiro andar, como outrora era dado: em baixo, sítio para os animais; em cima, espaço destinado à habitação da família, aonde se acedia pelo exterior, através dos típicos balcões de escadas e lajes da rocha plutónica. ",
     cover: bookCover3,
     alt: "Capa de Tesouros de Oledo - Junta de Freguesia de Oledo",
+    apresentacao: "Aqui está a apresentação do livro Tesouros de Oledo... A compreensão de Oledo requer uma atenta observação à Rua Direita. Na tradição do to-pónimo português, aquele nome, por via de regra, é atribuído à artéria principal, a mais importante da localidade. Em outros casos, até, por ter sido onde tudo começou, a primeira. (...) Está alinhada às vias de comunicação exterior: a este, com Idanha-a-Nova e Proença-a-Velha; a oeste, com São Miguel de Acha. (...) ",
     // link: "https://www.google.com/search?q=junta+freguesia+oledo&oq=junta+freguesia+oledo&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhAuGEDSAQgzMzEyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8",
   },
   {
     year: 2021,
-    title: "D. António Ribeiro Patriarca de Lisboa",
+    title: "D. António Ribeiro Patriarca de Lisboa - Segunda Edição",
     description: "Seleção das melhores crónicas semanais publicadas entre 1995 e 2000.",
     cover: antonioRibeiro2,
     alt: "Capa de D. António Ribeiro Patriarca de Lisboa com página de jornal e máquina de escrever",
@@ -152,7 +153,7 @@ export default function BibliografiaPage() {
 
                             <AccordionTrigger className="p-0 py-2 [&>svg]:text-ink-faded [&>svg]:size-4" onClick={() => setOpenIndex(index === openIndex ? null : index)}>
                               <span className="text-sm font-typewriter tracking-wider text-ink-faded">
-                                {index === openIndex ? "Sinopse:" : "Ler sinopse"}
+                                {index === openIndex ? "Sinopse" : "Sinopse"}
                               </span>
                             </AccordionTrigger>
 
@@ -160,6 +161,18 @@ export default function BibliografiaPage() {
                               <p className="font-body text-sm text-muted-foreground leading-relaxed mt-2 text-justify">
                                 {book.description}
                               </p>
+
+                              {book.apresentacao && (
+                                <>
+                                  <hr className="my-4" />
+                                  <span className="text-sm font-typewriter tracking-wider text-ink-faded">
+                                    Apresentação
+                                  </span>
+                                  <p className="font-body text-sm text-muted-foreground leading-relaxed mt-2 text-justify">
+                                    {book.apresentacao}
+                                  </p>
+                                </>
+                              )}
                             </AccordionContent>
 
                             {/* {book.link && (

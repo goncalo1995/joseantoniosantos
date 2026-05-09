@@ -34,7 +34,7 @@ export default function HomePage() {
       
       <main className="relative pt-16">
         {/* Hero Section */}
-        <section className="min-h-[80vh] flex items-center justify-center px-4 md:px-6">
+        <section className="min-h-[40vh] flex items-center justify-center px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">
             {/* Decorative element */}
             <motion.div
@@ -85,20 +85,6 @@ export default function HomePage() {
             </motion.blockquote> */}
 
             {/* Scroll indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 4, duration: 0.8 }}
-              className="mt-16"
-            >
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="text-ink-faded text-xs tracking-widest"
-              >
-                ↓
-              </motion.div>
-            </motion.div>
           </div>
         </section>
 
