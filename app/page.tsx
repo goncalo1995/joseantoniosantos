@@ -13,15 +13,15 @@ const sections = [
     href: '/biografia'
   },
   {
-    title: 'Principais Trabalhos',
-    description: '',
-    href: '/artigos'
-  },
-  {
     title: 'Bibliografia',
     description: '',
     href: '/bibliografia'
-  }
+  },
+  {
+    title: 'Arquivo',
+    description: '',
+    href: '/arquivo'
+  },
 ]
 
 export default function HomePage() {
@@ -116,49 +116,6 @@ export default function HomePage() {
                 />
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Timeline Preview */}
-        <section className="py-16 md:py-24 px-4 md:px-6 bg-paper">
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="font-serif text-2xl md:text-3xl text-ink mb-8">
-                Marcos de uma Vida
-              </h2>
-              
-              {/* Simple Timeline */}
-              <div className="space-y-8 text-left">
-                {[
-                  { year: '1935', event: 'Nasce em Lisboa, Portugal' },
-                  { year: '1958', event: 'Inicia carreira no jornalismo' },
-                  { year: '1972', event: 'Publica primeira grande reportagem' },
-                  { year: '1989', event: 'Lança obra literária de referência' },
-                ].map((item, index) => (
-                  <motion.div
-                    key={item.year}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="flex items-start gap-6 border-l border-border pl-6"
-                  >
-                    <span className="text-sm text-ink-faded font-mono min-w-[4rem]">
-                      {item.year}
-                    </span>
-                    <span className="text-ink">
-                      {item.event}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </section>
       </main>

@@ -6,7 +6,7 @@ import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { articles } from '@/lib/articles'
 
-export default function ArtigosPage() {
+export default function ArquivoPage() {
   return (
     <div className="min-h-screen bg-background relative">
       {/* Paper texture overlay */}
@@ -31,7 +31,7 @@ export default function ArtigosPage() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="font-serif text-4xl md:text-5xl lg:text-6xl text-ink mb-4"
             >
-              Artigos
+              Arquivo
             </motion.h1>
             
             <motion.p
@@ -77,7 +77,7 @@ export default function ArtigosPage() {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="group"
                 >
-                  <Link href={`/artigos/${article.slug}`} className="block">
+                  <Link href={`/arquivo/${article.slug}`} className="block">
                     <div className="py-8 border-b border-border hover:bg-paper transition-colors">
                       {/* Article Header */}
                       <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">

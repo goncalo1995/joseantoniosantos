@@ -33,8 +33,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <h1 className="font-serif text-2xl text-ink mb-4">Artigo não encontrado</h1>
-          <Link href="/artigos" className="text-ink-faded hover:text-ink transition-colors">
-            ← Voltar aos artigos
+          <Link href="/arquivo" className="text-ink-faded hover:text-ink transition-colors">
+            ← Voltar ao arquivo
           </Link>
         </div>
       </div>

@@ -46,11 +46,11 @@ function ClientArticleContent({ article, prevArticle, nextArticle }: ClientProps
               transition={{ duration: 0.4 }}
             >
               <Link 
-                href="/artigos" 
+                href="/arquivo" 
                 className="inline-flex items-center gap-2 text-sm text-ink-faded hover:text-ink transition-colors"
               >
                 <ArrowLeft size={16} />
-                <span>Voltar aos artigos</span>
+                <span>Voltar ao arquivo</span>
               </Link>
             </motion.div>
           </div>
@@ -141,7 +141,7 @@ function ClientArticleContent({ article, prevArticle, nextArticle }: ClientProps
                   <div>
                     {prevArticle && (
                       <Link 
-                        href={`/artigos/${prevArticle.slug}`}
+                        href={`/arquivo/${prevArticle.slug}`}
                         className="group block"
                       >
                         <span className="text-xs text-ink-faded tracking-wider uppercase mb-2 block">
@@ -158,7 +158,7 @@ function ClientArticleContent({ article, prevArticle, nextArticle }: ClientProps
                   <div className="md:text-right">
                     {nextArticle && (
                       <Link 
-                        href={`/artigos/${nextArticle.slug}`}
+                        href={`/arquivo/${nextArticle.slug}`}
                         className="group block"
                       >
                         <span className="text-xs text-ink-faded tracking-wider uppercase mb-2 block">

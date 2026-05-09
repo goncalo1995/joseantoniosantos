@@ -10,7 +10,7 @@ const navItems = [
   { href: '/', label: 'Início' },
   { href: '/biografia', label: 'Biografia' },
   { href: '/bibliografia', label: 'Bibliografia' },
-  { href: '/artigos', label: 'Artigos' },
+  { href: '/arquivo', label: 'Arquivo' },
 ]
 
 export function Navigation() {
