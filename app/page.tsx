@@ -9,18 +9,18 @@ import { PaperCard } from '@/components/paper-card'
 const sections = [
   {
     title: 'Biografia',
-    description: 'A história de uma vida dedicada à verdade e à palavra escrita.',
+    description: '',
     href: '/biografia'
   },
   {
-    title: 'Bibliografia',
-    description: 'Obras publicadas que marcaram gerações de leitores.',
-    href: '/bibliografia'
+    title: 'Principais Trabalhos',
+    description: '',
+    href: '/artigos'
   },
   {
-    title: 'Artigos',
-    description: 'Reportagens e crónicas que fizeram história.',
-    href: '/artigos'
+    title: 'Bibliografia',
+    description: '',
+    href: '/bibliografia'
   }
 ]
 
@@ -64,7 +64,7 @@ export default function HomePage() {
             </motion.p>
             
             {/* Brief Introduction */}
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3, duration: 0.8 }}
@@ -72,17 +72,17 @@ export default function HomePage() {
             >
               Uma vida inteira dedicada a contar histórias que precisavam ser contadas, 
               em tempos que exigiam coragem para escrever a verdade.
-            </motion.p>
+            </motion.p> */}
 
             {/* Featured Quote */}
-            <motion.blockquote
+            {/* <motion.blockquote
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 3.5, duration: 0.8 }}
               className="mt-12 font-serif text-xl md:text-2xl text-ink italic"
             >
               {'"A verdade não tem preço, mas custa tudo para ser contada."'}
-            </motion.blockquote>
+            </motion.blockquote> */}
 
             {/* Scroll indicator */}
             <motion.div

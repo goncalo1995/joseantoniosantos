@@ -32,10 +32,10 @@ export function PaperCard({ title, description, href, index = 0 }: PaperCardProp
             </p>
             
             {/* Arrow indicator */}
-            <div className="mt-4 flex items-center gap-2 text-xs text-ink-faded group-hover:text-ink transition-colors">
+            {/* <div className="mt-4 flex items-center gap-2 text-xs text-ink-faded group-hover:text-ink transition-colors">
               <span className="tracking-wider">LER MAIS</span>
               <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-            </div>
+            </div> */}
           </div>
           
           {/* Bottom decorative line */}

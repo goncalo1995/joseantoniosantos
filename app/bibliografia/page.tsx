@@ -5,69 +5,67 @@ import { useState } from 'react'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import bookCover1 from '@/public/images/livros/d-albino-cleto.webp'
-import bookCover2 from '@/public/images/book-cover-2.jpg'
-import bookCover3 from '@/public/images/book-cover-3.jpg'
-import bookCover4 from '@/public/images/book-cover-4.jpg'
-import bookCover5 from '@/public/images/book-cover-5.jpg'
-import bookCover6 from '@/public/images/book-cover-6.jpg'
-import bookCover7 from '@/public/images/book-cover-7.jpg'
+import bookCover2 from '@/public/images/livros/padre-adelino.webp'
+import bookCover3 from '@/public/images/livros/Tesouros-de-Oledo.jpg'
+import bookCover4 from '@/public/images/livros/D-Albino-Cleto-Reflexoes-Espirituais-e-Pastorais.jpg'
+import antonioRibeiro1 from '@/public/images/livros/Antonio-ribeiro.jpg'
+import antonioRibeiro2 from '@/public/images/livros/D-antonio-ribeiro-2.webp'
+import agenciasNoticiasPortugal from '@/public/images/livros/Agencias-de-noticias-de-portugal.webp'
 import ScrollReveal from '@/components/scroll-reveal'
 import Image from 'next/image'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 const books = [
   {
-    year: 1978,
-    title: "D. Albino Cleto",
-    description: "Este livro sobre D. Albino Cleto (1935-2012), mais do que uma biografia, é um testemunho de vida plena(mente cristã), escrito com o coração, por um amigo e admirador. Baseia-se no testemunho dos que o conheceram de perto e nos próprios escritos desta figura insigne da Igreja portuguesa. Ao longo dos seus nove capítulos encontrar-se-ão certamente muitos pormenores até agora desconhecidos da vida, ação apostólica e espiritualidade de D. Albino. O traço mais destacado da vida do prelado não será, todavia, o itinerário repleto de tarefas multifacetadas ao serviço da Igreja, mas a sua humanidade simples, serena e humilde, como sublinha o atual bispo de Coimbra, D. Virgílio Antunes, no prefácio do livro: «Na tentativa de definir o traço fundamental da pessoa de D. Albino Cleto, ocorre-me a expressão bíblica \"passou pelo mundo fazendo o bem\".» As mais de 550 páginas, que incluem uma centena de fotografias, abrangem igualmente as ocupações que D. Albino assumiu após ter sido ordenado bispo, terminando com uma coletânea de textos em que se destacam os temas da arte, património, inculturação da fé, liturgia e diálogo inter-religioso.",
-    cover: bookCover1,
-    alt: "Capa provisória de Cartas do Silêncio com estética de máquina de escrever sobre papel envelhecido",
-    link: "https://www.wook.pt/livro/d-albino-cleto-jose-antonio-santos/17399111",
-  },
-  {
-    year: 1982,
-    title: "A Margem do Rio",
-    description: "Romance inspirado nas comunidades ribeirinhas do Douro, entrelaçando ficção e jornalismo literário.",
+    year: 2022,
+    title: "Padre Adelino Américo Lourenço - Uma Biografia",
+    description: "Corajoso, mergulhou como ninguém, na humanidade de Idanha-a-Nova, compreendeu a alma do povo e, em nome do Evangelho de Jesus Cristo, resgatou a população dos opróbrios a que a haviam sujeitado. Com a ajuda do padre Adelino, homens e mulheres reconquistaram a honra de serem pessoas, passaram a ser respeitados com dignidade. Sobretudo, os mais pobres compreenderam que, afinal, também contam. Como pároco, contribuiu para a valorização e notoriedade do concelho. Idanha-a-Nova manifestou-se reconhecida e fez dele uma Pessoa feliz.",
     cover: bookCover2,
-    alt: "Capa provisória de A Margem do Rio com paisagem fluvial em tons sépia",
-    link: "https://www.amazon.com/A-Margem-Rio-Jose-Antonio-Santos/dp/8418000000",
+    alt: "Capa de Padre Adelino Américo Lourenço - Uma Biografia",
+    // link: "https://www.paulinas.pt/produto/padre-adelino-americo-lourenco/",
   },
   {
-    year: 1986,
-    title: "Fronteiras Invisíveis",
-    description: "Crónicas de correspondente internacional — conflitos, revoluções e encontros improváveis em três continentes.",
+    year: 2021,
+    title: "Tesouros de Oledo",
+    description: "A compreensão de Oledo requer uma atenta observação à Rua Direita. Na tradição do to-pónimo português, aquele nome, por via de regra, é atribuído à artéria principal, a mais importante da localidade. Em outros casos, até, por ter sido onde tudo começou, a primeira. (...) Está alinhada às vias de comunicação exterior: a este, com Idanha-a-Nova e Proença-a-Velha; a oeste, com São Miguel de Acha. (...) O empedrado da rua é composto por grossos paralelepípedos de granito. Ao longo de linhas paralelas dispõe-se o local de habitação. Entre fileiras do casario, distinguem-se resquícios renascentistas. Em geral, a volumetria não excede dois pisos, rés-do-chão e primeiro andar, como outrora era dado: em baixo, sítio para os animais; em cima, espaço destinado à habitação da família, aonde se acedia pelo exterior, através dos típicos balcões de escadas e lajes da rocha plutónica. ",
     cover: bookCover3,
-    alt: "Capa provisória de Fronteiras Invisíveis com mapas e referências editoriais vintage",
-    link: "https://www.amazon.com/Fronteiras-Invis%C3%ADveis-Jos%C3%A9-Ant%C3%B3nio-Santos/dp/8418000001",
+    alt: "Capa de Tesouros de Oledo - Junta de Freguesia de Oledo",
+    // link: "https://www.google.com/search?q=junta+freguesia+oledo&oq=junta+freguesia+oledo&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhAuGEDSAQgzMzEyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8",
   },
   {
-    year: 1991,
-    title: "O Peso das Palavras",
+    year: 2021,
+    title: "D. António Ribeiro Patriarca de Lisboa",
+    description: "Seleção das melhores crónicas semanais publicadas entre 1995 e 2000.",
+    cover: antonioRibeiro2,
+    alt: "Capa de D. António Ribeiro Patriarca de Lisboa com página de jornal e máquina de escrever",
+  },
+  {
+    year: 2018,
+    title: "Dom Albino Cleto Reflexões Espirituais e Pastorais",
     description: "Ensaios sobre o papel do jornalismo na democracia portuguesa pós-25 de Abril.",
     cover: bookCover4,
     alt: "Capa provisória de O Peso das Palavras com páginas envelhecidas e marcas de tinta",
   },
   {
-    year: 1996,
-    title: "Retratos a Carvão",
-    description: "Perfis de figuras anónimas que moldaram a história sem nunca constarem dos livros oficiais.",
-    cover: bookCover5,
+    year: 2016,
+    title: "D. Albino Cleto Memórias de Uma Vida Plena",
+    description: "Este livro sobre D. Albino Cleto (1935-2012), mais do que uma biografia, é um testemunho de vida plena(mente cristã), escrito com o coração, por um amigo e admirador. Baseia-se no testemunho dos que o conheceram de perto e nos próprios escritos desta figura insigne da Igreja portuguesa. Ao longo dos seus nove capítulos encontrar-se-ão certamente muitos pormenores até agora desconhecidos da vida, ação apostólica e espiritualidade de D. Albino. O traço mais destacado da vida do prelado não será, todavia, o itinerário repleto de tarefas multifacetadas ao serviço da Igreja, mas a sua humanidade simples, serena e humilde, como sublinha o atual bispo de Coimbra, D. Virgílio Antunes, no prefácio do livro: «Na tentativa de definir o traço fundamental da pessoa de D. Albino Cleto, ocorre-me a expressão bíblica \"passou pelo mundo fazendo o bem\".» As mais de 550 páginas, que incluem uma centena de fotografias, abrangem igualmente as ocupações que D. Albino assumiu após ter sido ordenado bispo, terminando com uma coletânea de textos em que se destacam os temas da arte, património, inculturação da fé, liturgia e diálogo inter-religioso.",
+    cover: bookCover1,
     alt: "Capa provisória de Retratos a Carvão com retrato monocromático clássico",
   },
   {
-    year: 2001,
-    title: "Crónicas do Tempo Presente",
-    description: "Seleção das melhores crónicas semanais publicadas entre 1995 e 2000.",
-    cover: bookCover6,
-    alt: "Capa provisória de Crónicas do Tempo Presente com página de jornal e máquina de escrever",
+    year: 2007,
+    title: "Agências de Noticias de Portugal",
+    description: "Memórias pessoais e profissionais — cinco décadas de vida e escrita com lucidez e ironia.",
+    cover: agenciasNoticiasPortugal,
+    alt: "Capa de Agências de Noticias de Portugal",
   },
   {
-    year: 2005,
-    title: "Tinta e Tempo",
-    description: "Memórias pessoais e profissionais — cinco décadas de vida e escrita com lucidez e ironia.",
-    cover: bookCover7,
-    alt: "Capa provisória de Tinta e Tempo com mesa de escrita analógica em preto e bege",
+    year: 1996,
+    title: "D. António Ribeiro Patriarca de Lisboa",
+    description: "Seleção das melhores crónicas semanais publicadas entre 1995 e 2000.",
+    cover: antonioRibeiro1,
+    alt: "Capa de D. António Ribeiro Patriarca de Lisboa com página de jornal e máquina de escrever",
   },
 ];
 
@@ -111,31 +109,6 @@ export default function BibliografiaPage() {
               Obras publicadas ao longo de uma carreira dedicada à escrita
             </motion.p>
           </div>
-        </section>
-
-        {/* Stats */}
-        <section className="px-4 md:px-6 mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="flex justify-center gap-8 md:gap-16 py-6 border-y border-border">
-              <div className="text-center">
-                <span className="block font-serif text-3xl md:text-4xl text-ink">9</span>
-                <span className="text-xs text-ink-faded tracking-wider uppercase">Obras</span>
-              </div>
-              <div className="text-center">
-                <span className="block font-serif text-3xl md:text-4xl text-ink">33</span>
-                <span className="text-xs text-ink-faded tracking-wider uppercase">Anos</span>
-              </div>
-              <div className="text-center">
-                <span className="block font-serif text-3xl md:text-4xl text-ink">20+</span>
-                <span className="text-xs text-ink-faded tracking-wider uppercase">Línguas</span>
-              </div>
-            </div>
-          </motion.div>
         </section>
 
         {/* Books Grid */}
@@ -184,24 +157,24 @@ export default function BibliografiaPage() {
                             </AccordionTrigger>
 
                             <AccordionContent>
-                              <p className="font-body text-sm text-muted-foreground leading-relaxed mt-2">
+                              <p className="font-body text-sm text-muted-foreground leading-relaxed mt-2 text-justify">
                                 {book.description}
                               </p>
                             </AccordionContent>
 
-                            {book.link && (
+                            {/* {book.link && (
                               <a
                                 href={book.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 mt-6 text-ink-faded hover:text-ink transition-colors bg-secondary/80 px-3 py-1.5 rounded"
                               >
-                                <span className="text-sm font-typewriter tracking-wider">
+                                <span className="text-sm font-typewriter tracking-wider text-right">
                                   Comprar
                                 </span>
                                 <span className="text-sm">→</span>
                               </a>
-                            )}
+                            )} */}
                           </div>
                         </div>
                       </motion.article>
